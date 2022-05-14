@@ -26,12 +26,8 @@ class _HomePageState extends State<HomePage> {
                     style: kHeaderTextStyle,
                   ),
                 ),
-                ListView(
-                  children: [],
-                )
               ],
             ),
-
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
