@@ -19,13 +19,16 @@ class _HomePageState extends State<HomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                Padding(
+                const Padding(
                   padding: EdgeInsets.symmetric(vertical: 30, horizontal: 15),
                   child: Text(
-                    'Sets',
+                    'Your Sets',
                     style: kHeaderTextStyle,
                   ),
                 ),
+                ListView(
+                  children: [],
+                )
               ],
             ),
 
