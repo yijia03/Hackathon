@@ -14,11 +14,11 @@ class WelcomeScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget> [
-            Text(
+            const Text(
               'PAPYRUS',
               style: kTitleTextStyle,
             ),
-            SizedBox(
+            const SizedBox(
               height: 120.0,
             ),
             OvalTextButton(
