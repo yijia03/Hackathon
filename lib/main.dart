@@ -15,19 +15,22 @@ class Papyrus extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        // UI
-        brightness: Brightness.light,
+    return ChangeNotifierProvider<Brain>(
+      create: (context) => Brain(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          // UI
+          brightness: Brightness.light,
+        ),
+        routes: {
+          WelcomeScreen.id: (context) => const WelcomeScreen(),
+          HomeScreen.id: (context) => const HomeScreen(),
+          SubjectScreen.id: (context) => const SubjectScreen(),
+          EditorScreen.id: (context) => const EditorScreen(),
+        },
+        initialRoute: WelcomeScreen.id,
       ),
-      routes: {
-        WelcomeScreen.id: (context) => const WelcomeScreen(),
-        HomeScreen.id: (context) => const HomeScreen(),
-        SubjectScreen.id: (context) => const SubjectScreen(),
-        EditorScreen.id: (context) => const EditorScreen(),
-      },
-      initialRoute: WelcomeScreen.id,
     );
   }
 }
