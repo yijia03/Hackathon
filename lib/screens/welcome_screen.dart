@@ -21,7 +21,7 @@ class WelcomeScreen extends StatelessWidget {
                 style: kTitleTextStyle,
             ),
             SizedBox(
-              height: 20.0,
+              height: 30.0,
             ),
             OvalTextButton(
                 buttonSizeCoefficient: 1.5,
