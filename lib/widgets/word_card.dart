@@ -3,11 +3,17 @@ import 'package:papyrus/utilities/note_card.dart';
 
 class WordCard extends StatelessWidget {
   NoteCard _card;
-  bool _term = true;
-  WordCard(this._card, this._term);
+  WordCard(this._card);
 
   @override
-  Widget build(BuildContext context) {
-    return Container(height: 100, width: 200, child: Text(_term ? _card.getTerm() : _card.getDef()),color: Colors.blue,);
+  Widget build(context) {
+    return Container();
+  }
+  Widget front(context) {
+    return Container(color: Colors.amberAccent, child: Center(child: Text(_card.getTerm()),), height: 200, width: 100,key: ValueKey(true),);
+  }
+  Widget back(context) {
+    return Container(color: Colors.amberAccent, child: Center(child: Text(_card.getDef()),), height: 200, width: 100,
+    key: ValueKey(false),);
   }
 }
