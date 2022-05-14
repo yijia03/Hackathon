@@ -12,29 +12,30 @@ class WelcomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(
-              'PAPYRUS',
-              style: kTitleTextStyle,
-          ),
-          SizedBox(
-            height: 20.0,
-          ),
-          OvalTextButton(
-              buttonSizeCoefficient: 1.5,
-              onTap: (){
-                Navigator.pushReplacementNamed(context, SubjectScreen.id);
-              },
-              text: 'Start',
-              textColor: Colors.white,
-              backgroundColor: Color(0xffC3FFE3),
-              borderColor: Colors.white,
-              elevation: 20,
-          ),
-        ],
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+                'PAPYRUS',
+                style: kTitleTextStyle,
+            ),
+            SizedBox(
+              height: 20.0,
+            ),
+            OvalTextButton(
+                buttonSizeCoefficient: 1.5,
+                onTap: (){
+                  Navigator.pushReplacementNamed(context, SubjectScreen.id);
+                },
+                text: 'Start',
+                textColor: Colors.white,
+                backgroundColor: Color(0xffC3FFE3),
+                borderColor: Colors.white,
+                elevation: 20,
+            ),
+          ],
+        ),
       ),
     );
   }
