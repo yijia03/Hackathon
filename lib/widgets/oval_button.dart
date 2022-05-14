@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class OvalTextButton extends StatelessWidget {
   final Function() onTap;
   final String text;
-  final Color primaryColor; //text color
+  final Color textColor; //text color
   final Color backgroundColor; //background color
   final Color borderColor; //border color
   final double buttonSizeCoefficient;
@@ -14,7 +14,7 @@ class OvalTextButton extends StatelessWidget {
     required this.buttonSizeCoefficient,
     required this.onTap,
     required this.text,
-    required this.primaryColor,
+    required this.textColor,
     required this.backgroundColor,
     required this.borderColor,
     required this.elevation,
@@ -30,7 +30,7 @@ class OvalTextButton extends StatelessWidget {
         ),
       ),
       style: TextButton.styleFrom(
-        primary: primaryColor,
+        primary: textColor,
         backgroundColor: backgroundColor,
         side: BorderSide(color: borderColor, width: 1),
         elevation: elevation,

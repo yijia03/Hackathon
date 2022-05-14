@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:papyrus/constants.dart';
+import 'package:papyrus/screens/subject_screen.dart';
+import 'package:papyrus/widgets/oval_button.dart';
+
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
@@ -7,7 +11,31 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(children: [const Text('APP ICON HERE'), ],),
+      backgroundColor: Colors.white,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+              'PAPYRUS',
+              style: kTitleTextStyle,
+          ),
+          SizedBox(
+            height: 20.0,
+          ),
+          OvalTextButton(
+              buttonSizeCoefficient: 1.5,
+              onTap: (){
+                Navigator.pushReplacementNamed(context, SubjectScreen.id);
+              },
+              text: 'Start',
+              textColor: Colors.white,
+              backgroundColor: Color(0xffC3FFE3),
+              borderColor: Colors.white,
+              elevation: 20,
+          ),
+        ],
+      ),
     );
   }
 }

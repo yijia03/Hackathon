@@ -16,6 +16,10 @@ class Papyrus extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        // UI
+        brightness: Brightness.light,
+      ),
       routes: {
         WelcomeScreen.id: (context) => const WelcomeScreen(),
         HomeScreen.id: (context) => const HomeScreen(),
