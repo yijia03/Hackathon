@@ -18,7 +18,7 @@ class WelcomeScreen extends StatelessWidget {
           children: [
             Text(
                 'PAPYRUS',
-                style: kTitleTextStyle,
+                style: kTitleTextStyleLight,
             ),
             SizedBox(
               height: 30.0,
