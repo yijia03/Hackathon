@@ -6,18 +6,23 @@ class OvalTextButton extends StatelessWidget {
   final Color textColor; //text color
   final Color backgroundColor; //background color
   final Color borderColor; //border color
-  final double buttonSizeCoefficient;
   final double elevation;
+  final double height;
+  final double width;
+  final double fontSize;
+
 
   const OvalTextButton({
     Key? key,
-    required this.buttonSizeCoefficient,
     required this.onTap,
     required this.text,
     required this.textColor,
     required this.backgroundColor,
     required this.borderColor,
     required this.elevation,
+    required this.height,
+    required this.width,
+    required this.fontSize
   }) : super(key: key);
 
   @override
@@ -26,7 +31,7 @@ class OvalTextButton extends StatelessWidget {
       child: Text(
         text,
         style: TextStyle(
-          fontSize: 15 * buttonSizeCoefficient,
+          fontSize: fontSize,
         ),
       ),
       style: TextButton.styleFrom(
@@ -35,10 +40,10 @@ class OvalTextButton extends StatelessWidget {
         side: BorderSide(color: borderColor, width: 1),
         elevation: elevation,
         minimumSize:
-        Size(120 * buttonSizeCoefficient, 50 * buttonSizeCoefficient),
+        Size(width, height),
         //shadowColor: Colors.grey,
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30 * buttonSizeCoefficient)),
+            borderRadius: BorderRadius.circular(25)),
       ),
       onPressed: onTap,
     );
