@@ -1,9 +1,9 @@
-//import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:papyrus/exceptions.dart';
 import 'package:papyrus/utilities/set.dart';
 
 ///A collection of all the sets the user has created, in alphabetical order by name.
-class Brain /*extends ChangeNotifier*/ {
+class Brain extends ChangeNotifier {
    final List<WordSet> _sets = [];
    ///Creates an empty set with the given setName and adds it to the list.
    void create(String setName) {
@@ -18,6 +18,7 @@ class Brain /*extends ChangeNotifier*/ {
          }
       }
       _sets.insert(i, WordSet(setName));
+      notifyListeners();
    }
    ///Inserts a preexisting set to the list.
    void insert(WordSet set) {
@@ -32,6 +33,7 @@ class Brain /*extends ChangeNotifier*/ {
          }
       }
       _sets.insert(i, set);
+      notifyListeners();
    }
 
    @override
@@ -63,6 +65,7 @@ class Brain /*extends ChangeNotifier*/ {
       }
       WordSet set = _sets[index];
       _sets.removeAt(index);
+      notifyListeners();
       return set;
    }
    ///Changes the name of an existing set by deleting it and then reinserting it. Throws NotFoundException when trying to rename a set not in the collection.
