@@ -3,6 +3,8 @@ import 'package:papyrus/screens/editor_screen.dart';
 import 'package:papyrus/screens/home_screen.dart';
 import 'package:papyrus/screens/subject_screen.dart';
 import 'package:papyrus/screens/welcome_screen.dart';
+import 'package:papyrus/utilities/brain.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const Papyrus());

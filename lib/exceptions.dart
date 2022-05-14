@@ -1,0 +1,1 @@
+class NameException implements Exception {}
