@@ -3,57 +3,69 @@ import 'package:papyrus/exceptions.dart';
 import 'package:papyrus/utilities/set.dart';
 
 class Brain /*extends ChangeNotifier*/ {
-   List<WordSet?> _sets = List<WordSet?>.filled(10, null);
-   int _size = 0;
+   final List<WordSet> _sets = [];
    void create(String setName) {
-      if (_getIndex(setName) != -1) {
-         throw NameException();
-      }
-      int index = 0;
-      try {
-         while (_sets[index] != null) {
-            if (setName.compareTo(_sets[index]!.getName()) < 0){
-               index = _left(index);
-            } else {
-               index = _right(index);
-            }
+      int i;
+      for (i = 0; i < _sets.length; i++) {
+         int diff = setName.toUpperCase().compareTo(_sets[i].getName().toUpperCase());
+         if (diff > 0){
+            i--;
+            break;
+         } else if (diff == 0) {
+            throw NameException();
          }
-         _sets[index] = WordSet(setName);
-         _size++;
-      } catch (e) {
-         _expand();
-         create(setName);
       }
+      _sets.insert(i, WordSet(setName));
    }
 
-   void _expand() {
-      List<WordSet?> newLst = List<WordSet?>.filled(_sets.length * 2, null);
-      for (int i = 0; i < _sets.length; i++) {
-         newLst[i] = _sets[i];
+   void insert(WordSet set) {
+      int i;
+      for (i = 0; i < _sets.length; i++) {
+         int diff = set.getName().toUpperCase().compareTo(_sets[i].getName().toUpperCase());
+         if (diff > 0){
+            i--;
+            break;
+         } else if (diff == 0) {
+            throw NameException();
+         }
       }
-      _sets = newLst;
+      _sets.insert(i, set);
    }
 
-   int _left(int index) => 2 * index + 1;
-   int _right(int index) => 2 * index + 2;
-   int _parent(int index) => (index - 1) ~/ 2;
    @override
    String toString() => _sets.toString();
+
    int _getIndex(String setName) {
-      int index = 0;
-      try {
-         while (setName != _sets[index]!.getName()) {
-            if (setName.compareTo(_sets[index]!.getName()) < 0){
-               index = _left(index);
-            } else {
-               index = _right(index);
-            }
+      int min = 0;
+      int max = _sets.length;
+      int index = (max - min) ~/ 2;
+      while (max >= min) {
+         int diff = setName.toUpperCase().compareTo(_sets[index].getName().toUpperCase());
+         if (diff == 0) {
+            return index;
+         } else if (diff < 0) {
+            max = index;
+         } else {
+            min = index;
          }
-         return index;
-      } catch (e) {
-         return -1;
+         index = (max - min) ~/ 2;
       }
+      return -1;
    }
 
-   void
+   WordSet delete(String setName) {
+      int index = _getIndex(setName);
+      if (index == -1){
+         throw NotFoundException();
+      }
+      WordSet set = _sets[index];
+      _sets.removeAt(index);
+      return set;
+   }
+
+   void changeName(String setName, String newName) {
+      WordSet set = delete(setName);
+      set.setName(newName);
+      insert(set);
+   }
 }

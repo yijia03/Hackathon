@@ -16,7 +16,7 @@ class WordSet {
     int i;
     for (i = 0; i < _lst.length; i++) {
       int diff = card.getTerm().toUpperCase().compareTo(_lst[i].getTerm().toUpperCase());
-      if (diff> 0){
+      if (diff > 0){
         i--;
         break;
       } else if (diff == 0) {
