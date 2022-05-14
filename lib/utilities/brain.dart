@@ -19,8 +19,8 @@ class Brain extends ChangeNotifier {
       int i;
       for (i = 0; i < _sets.length; i++) {
          int diff = set.getName().toUpperCase().compareTo(_sets[i].getName().toUpperCase());
-         if (diff > 0){
-            i--;
+         if (diff < 0){
+            i = i > 0 ? i - 1 : 0;
             break;
          } else if (diff == 0) {
             throw NameException();
@@ -32,7 +32,7 @@ class Brain extends ChangeNotifier {
 
    @override
    ///String representation of the collection
-   String toString() => _sets.toString();
+   String toString() => 'sets: $_sets, current: $_current';
    ///Finds the position of a set using its name. Returns -1 if the set isn't part of the collection
    int _getIndex(String setName) {
       int min = 0;
@@ -72,10 +72,13 @@ class Brain extends ChangeNotifier {
    }
    ///Selects a set with the cursor, if editing is true, then the list is also removed from the collection. Throws NotFoundException if setName doesn't match any sets in the collection
    void select(String setName, {bool editing=false}) {
+      print('setting current to $setName');
       if (editing) {
          _current = delete(setName);
       } else {
          _current = _sets[_getIndex(setName)];
       }
+      print('current = $_current');
+      print('brain = $this');
    }
 }

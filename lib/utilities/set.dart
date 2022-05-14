@@ -19,8 +19,8 @@ class WordSet {
     int i;
     for (i = 0; i < _lst.length; i++) {
       int diff = card.getTerm().toUpperCase().compareTo(_lst[i].getTerm().toUpperCase());
-      if (diff > 0){
-        i--;
+      if (diff < 0){
+        print('${card.getTerm()} < ${_lst[i].getTerm()}');
         break;
       } else if (diff == 0) {
         throw NameException();
