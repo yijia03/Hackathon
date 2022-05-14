@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:papyrus/utilities/brain.dart';
 import 'package:papyrus/utilities/note_card.dart';
+import 'package:papyrus/widgets/oval_button.dart';
 import 'package:papyrus/widgets/word_card.dart';
 import 'package:provider/provider.dart';
 
@@ -17,6 +18,9 @@ class SubjectScreen extends StatefulWidget {
 class _SubjectScreenState extends State<SubjectScreen> {
   int _flashCardID = 0;
   bool _showFrontSide = true;
+  bool _initialLoad = true;
+  List<WordCard> cards = [];
+
   Widget __transitionBuilder(Widget widget, Animation<double> animation) {
     final rotateAnim = Tween(begin: pi, end: 0.0).animate(animation);
     return AnimatedBuilder(
@@ -39,11 +43,13 @@ class _SubjectScreenState extends State<SubjectScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<WordCard> cards = [];
     Brain b = Provider.of<Brain>(context);
     print('brain: ' + b.toString());
-    for (NoteCard c in b.getCurr().getCards()) {
-      cards.add(WordCard(c));
+    if (_initialLoad) {
+      for (NoteCard c in b.getCurr().getCards()) {
+        cards.add(WordCard(c));
+      }
+      _initialLoad = false;
     }
     return Scaffold(
       body: Column(
@@ -86,6 +92,7 @@ class _SubjectScreenState extends State<SubjectScreen> {
                   icon: Icon(Icons.add)),
             ],
           ),
+          OvalTextButton(onTap: () => setState(()=>cards.shuffle()), text: 'Shuffle', textColor: Colors.white, backgroundColor: Colors.amberAccent, borderColor: Colors.white, elevation: 20, height: 50, width: 100, fontSize: 20)
         ],
       ),
     );
