@@ -7,4 +7,6 @@ class NoteCard {
   void setDef(String def) => _def = def;
   String getTerm() => _term;
   String getDef() => _def;
+  @override
+  String toString() => '$_term: $_def';
 }
