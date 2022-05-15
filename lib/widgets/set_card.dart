@@ -19,13 +19,17 @@ class SetCard extends StatelessWidget {
           IconButton(
               onPressed: () {
                 b.select(_name);
-                Navigator.pushNamed(context, PracticeScreen.id);
+                Navigator.pushNamed(context, PracticeScreen.id );
               },
               icon: Icon(Icons.play_arrow)),
           IconButton(
               onPressed: () {
                 b.select(_name);
-                Navigator.pushNamed(context, EditorScreen.id);
+                Navigator.push(context,
+                  MaterialPageRoute(
+                    builder: (context) => EditorScreen(initialTitle: b.getCurr().getName()),
+                  ),
+                );
               },
               icon: Icon(Icons.create)),
           IconButton(

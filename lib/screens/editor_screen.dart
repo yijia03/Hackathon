@@ -2,9 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:papyrus/utilities/brain.dart';
 import 'package:provider/provider.dart';
 import 'package:papyrus/constants.dart';
+import 'package:papyrus/widgets/word_card_editor.dart';
+import 'package:papyrus/utilities/note_card.dart';
+import 'package:papyrus/utilities/set.dart';
+
 
 class EditorScreen extends StatefulWidget {
-  const EditorScreen({Key? key}) : super(key: key);
+  final String initialTitle;
+
+  const EditorScreen({Key? key, required this.initialTitle}) : super(key: key);
   static const String id = "Editor Screen";
 
   @override
@@ -13,11 +19,13 @@ class EditorScreen extends StatefulWidget {
 
 class _EditorScreenState extends State<EditorScreen> {
   late TextEditingController _controller;
+  List<WordCardEditor> cards = [];
+  bool _initialLoad = true;
 
   @override
   void initState() {
     super.initState();
-    _controller = TextEditingController();
+    _controller = TextEditingController(text: widget.initialTitle);
   }
 
   @override
@@ -28,72 +36,121 @@ class _EditorScreenState extends State<EditorScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<Brain>(builder: (context, brain, child) {
-      return Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 30, horizontal: 10),
-                  child: Text(
-                    'Title: ',
-                    style: kSetTextStyle,
-                  ),
+    Brain brain = Provider.of<Brain>(context);
+    if (_initialLoad) {
+      brain.clearTempDefinitions();
+      brain.clearTempTerms();
+      for (NoteCard nc in brain.getCurr().getCards()) {
+        brain.addTempTerms(nc.getTerm(), cards.length);
+        brain.addTempDefinitions(nc.getDef(), cards.length);
+        cards.add(WordCardEditor(
+            initialTerm: nc.getTerm(), initialDefinition: nc.getDef(), index: cards.length));
+      }
+      _initialLoad = false;
+    }
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              const Padding(
+                padding: EdgeInsets.only(left: 10, top: 25),
+                child: Text(
+                  'Title: ',
+                  style: kSetTextStyle,
                 ),
-                Container(
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 25),
+                child: Container(
                   width: 250,
                   child: TextField(
-                    style: kTextFieldTextStyle,
+                    style: kTitleTextFieldTextStyle,
                     autocorrect: true,
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.symmetric(vertical: 0),
                       isDense: true,
                       hintText: 'Enter a title',
-                      hintStyle: kTextFieldHintStyle,
+                      hintStyle: kTitleTextFieldHintStyle,
                       enabledBorder: InputBorder.none,
                     ),
                     controller: _controller,
-                    onSubmitted: (String input) {
-                      brain.getCurr().setName(input);
-                      print(brain.getCurr().toString());
-                    },
+                    onSubmitted: (String input) {},
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width - 20,
+            height: 5,
+            color: Colors.grey[300],
+          ),
 
-            Stack(
-              alignment: AlignmentDirectional.bottomEnd,
-              children: <Widget>[
-                Container(
-                  height: MediaQuery.of(context).size.height - 275,
-                  child: ListView(),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.all(15),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          brain.create();
-                          Navigator.pushReplacementNamed(
-                              context, EditorScreen.id);
-                        },
-                        child: Icon(Icons.add),
-                        style: kAddButtonStyle,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
+          Expanded(
+            child: ListView(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              children: cards,
             ),
-          ],
-        ),
-      );
-    });
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Color(0xffA0E1FF),
+                ),
+                onPressed: () {
+                  setState(() {
+                    cards.add(WordCardEditor(initialTerm: '', initialDefinition: '', index: cards.length));
+                  });
+                },
+                child: Container(
+                  width: MediaQuery.of(context).size.width/2 - 50,
+                  child: Center(
+                    child: Text(
+                      '+ Add Notecard',
+                      style: kAddButtonTextStyle,
+                    ),
+                  ),
+                ),
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Color(0xffA0E1FF),
+                ),
+                onPressed: () {
+                  setState(() {
+                    WordSet newSet = WordSet(_controller.text);
+                    int index = 0;
+                    for (WordCardEditor wce in cards) {
+                      newSet.insert(NoteCard(brain.getTempTerms()[index], brain.getTempDefinitions()[index]));
+                      index++;
+                    }
+                    brain.insert(newSet);
+                    Navigator.pop(context);
+                  });
+                },
+                child: Container(
+                  width: MediaQuery.of(context).size.width/2 - 50,
+                  child: Center(
+                    child: Text(
+                      'Save',
+                      style: kAddButtonTextStyle,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 10,
+          ),
+        ],
+      ),
+    );
   }
 }

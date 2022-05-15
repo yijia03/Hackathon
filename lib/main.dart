@@ -40,7 +40,6 @@ class Papyrus extends StatelessWidget {
           WelcomeScreen.id: (context) => const WelcomeScreen(),
           HomeScreen.id: (context) => const HomeScreen(),
           PracticeScreen.id: (context) => const PracticeScreen(),
-          EditorScreen.id: (context) => const EditorScreen(),
         },
         initialRoute: WelcomeScreen.id,
       ),
