@@ -71,8 +71,8 @@ def readLetters():
     content_type = request.headers.get('Content-Type')
     json = request.json
 
-    answer = json.answer
-    written = json.written
+    # answer = json.answer
+    # written = json.written
 
     output = 0
 
