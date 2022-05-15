@@ -81,5 +81,14 @@ const kAddButtonTextStyle = TextStyle(
   fontStyle: FontStyle.normal,
 );
 
+//word_card
+const kCardColor = Color(0xffA0E1FF);
+const kCardTextStyle = TextStyle(
+  fontFamily: 'Roboto',
+  color: Colors.white,
+  fontSize: 20,
+  fontStyle: FontStyle.normal,
+);
+
 
 

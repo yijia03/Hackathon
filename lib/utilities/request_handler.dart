@@ -19,6 +19,6 @@ class RequestHandler {
       body: body,
     );
     //{"output": 0 or 1, "user_estimated_answer": str}
-    return body;
+    return response.body;
   }
 }

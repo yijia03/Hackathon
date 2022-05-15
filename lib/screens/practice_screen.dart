@@ -1,12 +1,9 @@
 import 'dart:convert';
 import 'dart:math';
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_signature_pad/flutter_signature_pad.dart';
 import 'package:papyrus/constants.dart';
-import 'package:papyrus/screens/editor_screen.dart';
 import 'package:papyrus/utilities/brain.dart';
 import 'package:papyrus/utilities/note_card.dart';
 import 'package:papyrus/utilities/request_handler.dart';
@@ -73,6 +70,9 @@ class _PracticeScreenState extends State<PracticeScreen> {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            SizedBox(
+              height: 15,
+            ),
             Row(
               children: [
                 IconButton(
@@ -98,9 +98,28 @@ class _PracticeScreenState extends State<PracticeScreen> {
               ),
             ),
             SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                    onPressed: () => setState(() {
+                      _flashCardID = _flashCardID == 0
+                          ? cards.length - 1
+                          : _flashCardID - 1;
+                    }),
+                    icon: Icon(Icons.arrow_back)),
+                IconButton(
+                    onPressed: () => setState(() {
+                      _flashCardID = _flashCardID == cards.length - 1
+                          ? 0
+                          : _flashCardID + 1;
+                    }),
+                    icon: Icon(Icons.arrow_forward)),
+              ],
+            ),
             Container(
               child: Signature(key: _sign,strokeWidth: 7.0),
-              color: Colors.green,
+              color: Colors.grey[400],
               height: 200,
             ),
             Row(
@@ -119,27 +138,10 @@ class _PracticeScreenState extends State<PracticeScreen> {
 
               var data = await image.toByteData(format: ImageByteFormat.png);
               String encoded = base64.encode(data!.buffer.asUint8List());
-              bool feedback = await RequestHandler.request(encoded, image.height, image.width, cards[_flashCardID].getDef());
-              _returnFeedback(feedback);
+              var feedback = await RequestHandler.request(encoded, image.height, image.width, cards[_flashCardID].getDef());
+              print(feedback);
             }, icon: Icon(Icons.check)),
-            Row(
-              children: [
-                IconButton(
-                    onPressed: () => setState(() {
-                          _flashCardID = _flashCardID == 0
-                              ? cards.length - 1
-                              : _flashCardID - 1;
-                        }),
-                    icon: Icon(Icons.remove)),
-                IconButton(
-                    onPressed: () => setState(() {
-                          _flashCardID = _flashCardID == cards.length - 1
-                              ? 0
-                              : _flashCardID + 1;
-                        }),
-                    icon: Icon(Icons.add)),
-              ],
-            ),
+
             OvalTextButton(
               onTap: () => setState(() => cards.shuffle()),
               text: 'Shuffle',
