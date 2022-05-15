@@ -8,6 +8,7 @@ app = Flask(__name__)
 import csv
 import numpy as np
 import base64 
+import json
 
 # key for labels to digits & letters
 key = np.array(['0','1','2','3','4','5','6','7','8','9',
@@ -172,26 +173,32 @@ def compAnswers(estimate=[], answer=''):
     estimatedString = ""
     correct = 1
 
-    for x in range(len(answer)):
+    for x in range(len(estimate)):
         # get top 3 most confident answers
         output = estimate[x]
-        outindex = np.argpartition(output, -5)[-5:]
+        outindex = np.argpartition(output, -3)[-3:]
         outindex = outindex[np.argsort(output[outindex])]
         possibleCharacters = [char.lower() for char in key[outindex]]
 
-        estimatedString += key[outindex][4].lower()
+        estimatedString += key[outindex][2].lower()
 
         # get confidence of actual answer
-        matchingAns = answer[x]
-        if matchingAns in ['c', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 's', 'u', 'v', 'w', 'x', 'y', 'z']:
-            matchingAns = matchingAns.upper()
-        confidence = output[key.tolist().index(matchingAns)]
+        if (x < len(answer)):
+            matchingAns = answer[x]
+            if matchingAns in ['c', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 's', 'u', 'v', 'w', 'x', 'y', 'z']:
+                matchingAns = matchingAns.upper()
+            confidence = output[key.tolist().index(matchingAns)]
 
-        # conditions for giving the user the point for the character
-        if answer[x].lower in possibleCharacters or confidence > 0.01:
-            correct = 1
+            # conditions for giving the user the point for the character
+            if answer[x].lower in possibleCharacters or confidence > 0.008:
+                correct = 1
+            else:
+                correct = 0
         else:
             correct = 0
+    
+    if (len(estimate) != len(answer)):
+        correct = 0
     
     if correct == 1:
         return [1, answer]
@@ -201,11 +208,11 @@ def compAnswers(estimate=[], answer=''):
 def readLetters():
     # get data from app
     content_type = request.headers.get('Content-Type')
-    json = request.json
+    file = request.json
 
-    answer = json.answer
-    written = json.data
-    size = [json.width, json.height]
+    answer = file['answer']
+    written = file['data']
+    size = [file['width'], file['height']]
 
     # process image
     userEstimate = doImage(written, size)
