@@ -14,6 +14,7 @@ class Brain extends ChangeNotifier {
       notifyListeners();
    }
    WordSet getCurr() => _current!;
+   List<WordSet> getSets() => _sets;
    ///Inserts a preexisting set to the list
    void insert(WordSet set) {
       int i;

@@ -3,10 +3,11 @@ import 'package:papyrus/constants.dart';
 import 'package:papyrus/utilities/brain.dart';
 import 'package:papyrus/utilities/note_card.dart';
 import 'package:papyrus/utilities/set.dart';
+import 'package:papyrus/widgets/set_card.dart';
 import 'package:provider/provider.dart';
 import 'package:papyrus/screens/editor_screen.dart';
 
-import '../screens/subject_screen.dart';
+import '../screens/practice_screen.dart';
 
 
 
@@ -21,6 +22,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Consumer<Brain>(builder: (context, brain, child) {
+      List<SetCard> setCards = [];
+      for (WordSet s in brain.getSets()) {
+        setCards.add(SetCard(s.getName()));
+      }
       return Scaffold(
         body: Center(
           child: Column(
@@ -44,6 +49,7 @@ class _HomePageState extends State<HomePage> {
                   Container(
                     height: MediaQuery.of(context).size.height-250,
                     child: ListView(
+                      children: setCards,
                     ),
                   ),
                   Row(

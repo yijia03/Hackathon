@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:papyrus/screens/editor_screen.dart';
 import 'package:papyrus/utilities/brain.dart';
 import 'package:papyrus/utilities/note_card.dart';
 import 'package:papyrus/widgets/oval_button.dart';
@@ -8,14 +9,14 @@ import 'package:papyrus/widgets/word_card.dart';
 import 'package:provider/provider.dart';
 
 ///A screen with flashcards based on the selected set
-class SubjectScreen extends StatefulWidget {
-  const SubjectScreen({Key? key}) : super(key: key);
+class PracticeScreen extends StatefulWidget {
+  const PracticeScreen({Key? key}) : super(key: key);
   static const String id = "Subject Screen";
   @override
-  State<SubjectScreen> createState() => _SubjectScreenState();
+  State<PracticeScreen> createState() => _PracticeScreenState();
 }
 
-class _SubjectScreenState extends State<SubjectScreen> {
+class _PracticeScreenState extends State<PracticeScreen> {
   int _flashCardID = 0;
   bool _showFrontSide = true;
   bool _initialLoad = true;
@@ -58,12 +59,11 @@ class _SubjectScreenState extends State<SubjectScreen> {
           Row(
             children: [
               IconButton(
-                  onPressed: () => setState(() {
-                    _flashCardID = _flashCardID == 0
-                        ? cards.length - 1
-                        : _flashCardID - 1;
-                  }),
+                  onPressed: () => Navigator.pop(context),
                   icon: Icon(Icons.arrow_back)),
+              IconButton(
+                  onPressed: () => Navigator.pushReplacementNamed(context, EditorScreen.id),
+                  icon: Icon(Icons.create)),
             ],
           ),
           GestureDetector(
@@ -98,7 +98,17 @@ class _SubjectScreenState extends State<SubjectScreen> {
                   icon: Icon(Icons.add)),
             ],
           ),
-          OvalTextButton(onTap: () => setState(()=>cards.shuffle()), text: 'Shuffle', textColor: Colors.white, backgroundColor: Colors.amberAccent, borderColor: Colors.white, elevation: 20, height: 50, width: 100, fontSize: 20)
+          OvalTextButton(
+              onTap: () => setState(() => cards.shuffle()),
+              text: 'Shuffle',
+              textColor: Colors.white,
+              backgroundColor: Colors.amberAccent,
+              borderColor: Colors.white,
+              elevation: 20,
+              height: 50,
+              width: 100,
+              fontSize: 20,
+          ),
         ],
       ),
     );

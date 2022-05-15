@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:papyrus/screens/editor_screen.dart';
 import 'package:papyrus/screens/home_screen.dart';
-import 'package:papyrus/screens/subject_screen.dart';
+import 'package:papyrus/screens/practice_screen.dart';
 import 'package:papyrus/screens/welcome_screen.dart';
 import 'package:papyrus/utilities/brain.dart';
 import 'package:papyrus/utilities/note_card.dart';
@@ -39,7 +39,7 @@ class Papyrus extends StatelessWidget {
         routes: {
           WelcomeScreen.id: (context) => const WelcomeScreen(),
           HomeScreen.id: (context) => const HomeScreen(),
-          SubjectScreen.id: (context) => const SubjectScreen(),
+          PracticeScreen.id: (context) => const PracticeScreen(),
           EditorScreen.id: (context) => const EditorScreen(),
         },
         initialRoute: WelcomeScreen.id,
