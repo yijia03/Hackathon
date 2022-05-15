@@ -12,7 +12,6 @@ import 'package:papyrus/utilities/request_handler.dart';
 import 'package:papyrus/widgets/oval_button.dart';
 import 'package:papyrus/widgets/word_card.dart';
 import 'package:provider/provider.dart';
-import 'package:scribble/scribble.dart';
 
 ///A screen with flashcards based on the selected set
 class PracticeScreen extends StatefulWidget {
@@ -28,6 +27,10 @@ class _PracticeScreenState extends State<PracticeScreen> {
   bool _initialLoad = true;
   List<WordCard> cards = [];
   final _sign = GlobalKey<SignatureState>();
+
+  void _returnFeedback(bool feedback) {
+    //TODO: implement this
+  }
 
   Widget __transitionBuilder(Widget widget, Animation<double> animation) {
     final rotateAnim = Tween(begin: pi, end: 0.0).animate(animation);
@@ -114,9 +117,11 @@ class _PracticeScreenState extends State<PracticeScreen> {
             IconButton(onPressed: () async {
               final sign = _sign.currentState;
               final image = await sign!.getData();
+
               var data = await image.toByteData(format: ImageByteFormat.png);
               String encoded = base64.encode(data!.buffer.asUint8List());
-              bool feedback = await RequestHandler.request(encoded);
+              bool feedback = await RequestHandler.request(encoded, image.height, image.width);
+              _returnFeedback(feedback);
             }, icon: Icon(Icons.check)),
             Row(
               children: [

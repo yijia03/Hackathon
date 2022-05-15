@@ -4,6 +4,7 @@ import 'package:papyrus/screens/home_screen.dart';
 import 'package:papyrus/screens/practice_screen.dart';
 import 'package:papyrus/screens/welcome_screen.dart';
 import 'package:papyrus/utilities/brain.dart';
+import 'package:papyrus/utilities/json_manager.dart';
 import 'package:papyrus/utilities/note_card.dart';
 import 'package:papyrus/utilities/set.dart';
 import 'package:papyrus/widgets/word_card.dart';
@@ -15,14 +16,13 @@ void main() {
 
 class Papyrus extends StatelessWidget {
   late Brain _b;
-  void init() {
-    _b = Brain();
-    WordSet set = WordSet('set 1');
-    set.insert(NoteCard('D', 'd'));
-    set.insert(NoteCard('A', 'a'));
-    set.insert(NoteCard('B', 'b'));
-    set.insert(NoteCard('C', 'c'));
-    _b.insert(set);
+  void init() async {
+    try {
+      _b = await JSONManager.load();
+    } catch (e) {
+      print(e);
+      _b = Brain();
+    }
   }
   @override
   Widget build(BuildContext context) {
