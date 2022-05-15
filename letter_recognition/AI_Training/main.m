@@ -1,25 +1,24 @@
-close all; clc; clear; 
-% clearvars -except X y testX testY;		% This might be useful, but delete 'clear' above it
+%%%% If no data has been loaded, run 'loadData' first %%%%
+close all; clc;
+clearvars -except X y testX testY;
 
 %%%% Parameters %%%%
 input_layer_size  = 784;  % 28x28 Greyscale Input Images
-hidden_layer_size = 120;   % 80 hidden units in first hidden layer
-hidden_layer_2_size = 80; % 80 hidden units in second hidden layer
+hidden_layer_size = 400;  % number of  hidden units in each hidden layer
+hidden_layer_2_size = 200;
 num_labels = 47;          % 47 labels: 
 						  % 	1-10 are digits 0-9, where label 1 is 0
                           % 	11-36 are uppercase letters, but they also represent lowercase letters with similar written form
 						  % 	37-47 are lowercase letters which do not look the same as their uppcase form: a, b, d, e, f, g, h, n, q, r, t
+sampleLoad = 1000;		  % amount of training examples to pull each training period
+m = size(X, 1);			  % number of total test samples
 
-%%%% Loading Training Data %%%%
-% X is a matrix of m columns and 784 rows where m is the number of data points, the 28x28 image is unrolled into a single row
-% y is a column vector containing the correct labels of each data point
-fprintf('Loading Data\n');
-
-load('Training_Data\processed_data_short_5000');	% 5000 training examples for training and another 5000 for testing
-% load('Training_Data\processed_data_short');			% 25000 training examples for training but the full 18800 for testing
-% load('Training_Data\processed_data');				% 112800 training examples and 18800 for testing from EMNIST (Balanced): https://arxiv.org/pdf/1702.05373v1.pdf
-
-m = size(X, 1);	
+%Randomly select a number samples from the consolidated training examples, collected from EMNIST Balanced: https://arxiv.org/abs/1702.05373v1
+fullData = [X y];
+randomData = randperm(size(fullData, 1), sampleLoad);
+randomData = fullData(randomData, :);
+X = randomData(:, 1:size(X)(2));
+y = randomData(:, end);
 
 % Display Data Points
 sel = randperm(size(X, 1));
@@ -39,7 +38,7 @@ initial_nn_params = [initial_Theta1(:) ; initial_Theta2(:) ; initial_Theta3(:)];
 fprintf('Training\n');
 iterations = 10;
 options = optimset('MaxIter', iterations);
-lambda = 6;
+lambda = 3;
 
 % Cost Function Minimization
 costFunction = @(p) nnCostFunction(p, input_layer_size, hidden_layer_size, hidden_layer_2_size, num_labels, X, y, lambda);				   
@@ -78,3 +77,9 @@ hold on;
 plot(0:iterations:n*iterations, total_overfit, 'blue');
 
 drawnow;
+
+%%%% Additional Training %%%%
+target = 0.9;
+while accuracy < target
+	train();
+end

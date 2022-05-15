@@ -1,4 +1,9 @@
 % Run this as many times as needed after running 'main' for additional training
+randomData = randperm(size(fullData, 1), sampleLoad);
+randomData = fullData(randomData, :);
+X = randomData(:, 1:size(X)(2));
+y = randomData(:, end);
+
 nn_params = [Theta1(:) ; Theta2(:) ; Theta3(:)];
 [nn_params, cost] = fmincg(costFunction, nn_params, options);	
 
