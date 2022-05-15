@@ -8,6 +8,7 @@ app = Flask(__name__)
 import csv
 import numpy as np
 import base64 
+import json
 
 # key for labels to digits & letters
 key = np.array(['0','1','2','3','4','5','6','7','8','9',
@@ -201,11 +202,11 @@ def compAnswers(estimate=[], answer=''):
 def readLetters():
     # get data from app
     content_type = request.headers.get('Content-Type')
-    json = request.json
+    file = request.json
 
-    answer = json.answer
-    written = json.data
-    size = [json.width, json.height]
+    answer = file['answer']
+    written = file['data']
+    size = [file['width'], file['height']]
 
     # process image
     userEstimate = doImage(written, size)
