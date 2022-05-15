@@ -29,3 +29,21 @@ var kAddButtonStyle = ButtonStyle(
   }),
 );
 
+//editor_screen
+const kSetTextStyle = TextStyle(
+    fontFamily: 'Roboto',
+    fontSize: 35.0,
+    color: Color(0xff77E1FF));
+const kTextFieldHintStyle = TextStyle(
+  fontFamily: 'Roboto',
+  color: Color(0xffA0E1FF),
+  fontSize: 15,
+  fontStyle: FontStyle.normal,
+);
+const kTextFieldTextStyle = TextStyle(
+    fontFamily: 'Roboto',
+    fontSize: 35,
+    color: Color(0xff77E1FF),
+);
+
+
