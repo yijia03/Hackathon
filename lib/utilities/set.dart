@@ -14,13 +14,25 @@ class WordSet {
   @override
   ///String representation of the word set.
   String toString() => '$_name: $_lst';
+  ///JSON representation of the word set
+  String toJSON() {
+    String json = '["$_name", [';
+    for (int i = 0; i < _lst.length - 1; i++) {
+      json += _lst[i].toJSON() + ', ';
+    }
+    try {
+      json += _lst.last.toJSON() + ']]';
+    } catch (e) {
+      return '[]';
+    }
+    return json;
+  }
   ///Inserts card into the set in alphabetical order.
   void insert(NoteCard card){
     int i;
     for (i = 0; i < _lst.length; i++) {
       int diff = card.getTerm().toUpperCase().compareTo(_lst[i].getTerm().toUpperCase());
       if (diff < 0){
-        print('${card.getTerm()} < ${_lst[i].getTerm()}');
         break;
       } else if (diff == 0) {
         throw NameException();

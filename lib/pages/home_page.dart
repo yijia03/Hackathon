@@ -27,15 +27,16 @@ class _HomePageState extends State<HomePage> {
         setCards.add(SetCard(s.getName()));
       }
       return Scaffold(
+        backgroundColor: kBackgroundColor,
         body: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 30, horizontal: 15),
+                    padding:  EdgeInsets.only(left: 10, top: 25),
                     child: Text(
                       'Your Sets',
                       style: kHeaderTextStyle,
@@ -43,11 +44,16 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
+              Container(
+                width: MediaQuery.of(context).size.width - 20,
+                height: 5,
+                color: Colors.grey[300],
+              ),
               Stack(
                 alignment: AlignmentDirectional.bottomEnd,
                 children: <Widget> [
                   Container(
-                    height: MediaQuery.of(context).size.height-250,
+                    height: MediaQuery.of(context).size.height-140,
                     child: ListView(
                       children: setCards,
                     ),
@@ -60,7 +66,11 @@ class _HomePageState extends State<HomePage> {
                         child: ElevatedButton(
                           onPressed: () {
                             brain.create();
-                            Navigator.pushNamed(context, EditorScreen.id);
+                            Navigator.push(context,
+                              MaterialPageRoute(
+                                builder: (context) => EditorScreen(initialTitle: brain.getCurr().getName()),
+                              ),
+                            );
                           },
                           child: Icon(Icons.add),
                           style: kAddButtonStyle,

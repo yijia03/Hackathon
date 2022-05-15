@@ -1,9 +1,15 @@
+import 'dart:convert';
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_signature_pad/flutter_signature_pad.dart';
+import 'package:papyrus/constants.dart';
 import 'package:papyrus/screens/editor_screen.dart';
 import 'package:papyrus/utilities/brain.dart';
 import 'package:papyrus/utilities/note_card.dart';
+import 'package:papyrus/utilities/request_handler.dart';
 import 'package:papyrus/widgets/oval_button.dart';
 import 'package:papyrus/widgets/word_card.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +27,11 @@ class _PracticeScreenState extends State<PracticeScreen> {
   bool _showFrontSide = true;
   bool _initialLoad = true;
   List<WordCard> cards = [];
+  final _sign = GlobalKey<SignatureState>();
+
+  void _returnFeedback(bool feedback) {
+    //TODO: implement this
+  }
 
   Widget __transitionBuilder(Widget widget, Animation<double> animation) {
     final rotateAnim = Tween(begin: pi, end: 0.0).animate(animation);
@@ -52,53 +63,87 @@ class _PracticeScreenState extends State<PracticeScreen> {
       }
       _initialLoad = false;
     }
-    return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Row(
-            children: [
-              IconButton(
-                  onPressed: () => Navigator.pop(context),
-                  icon: Icon(Icons.arrow_back)),
-              IconButton(
-                  onPressed: () => Navigator.pushReplacementNamed(context, EditorScreen.id),
-                  icon: Icon(Icons.create)),
-            ],
-          ),
-          GestureDetector(
-            onTap: () => setState(() => _showFrontSide = !_showFrontSide),
-            child: AnimatedSwitcher(
-              duration: Duration(milliseconds: 600),
-              transitionBuilder: __transitionBuilder,
-              layoutBuilder: (widget, list) =>
-                  Stack(children: [widget!, ...list]),
-              child: _showFrontSide
-                  ? cards[_flashCardID].front(context)
-                  : cards[_flashCardID].back(context),
-              switchInCurve: Curves.easeInBack,
-              switchOutCurve: Curves.easeInBack.flipped,
+    return WillPopScope(
+      onWillPop: () {
+        b.insert(b.getCurr());
+        return Future.value(true);
+      },
+      child: Scaffold(
+        backgroundColor: kBackgroundColor,
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              children: [
+                IconButton(
+                    onPressed: () {
+                      b.insert(b.getCurr());
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.arrow_back)),
+                IconButton(
+                    onPressed: () =>
+                        Navigator.pushReplacementNamed(context, EditorScreen.id),
+                    icon: Icon(Icons.create)),
+              ],
             ),
-          ),
-          Row(
-            children: [
-              IconButton(
-                  onPressed: () => setState(() {
-                        _flashCardID = _flashCardID == 0
-                            ? cards.length - 1
-                            : _flashCardID - 1;
-                      }),
-                  icon: Icon(Icons.remove)),
-              IconButton(
-                  onPressed: () => setState(() {
-                        _flashCardID = _flashCardID == cards.length - 1
-                            ? 0
-                            : _flashCardID + 1;
-                      }),
-                  icon: Icon(Icons.add)),
-            ],
-          ),
-          OvalTextButton(
+            GestureDetector(
+              onTap: () => setState(() => _showFrontSide = !_showFrontSide),
+              child: AnimatedSwitcher(
+                duration: Duration(milliseconds: 600),
+                transitionBuilder: __transitionBuilder,
+                layoutBuilder: (widget, list) =>
+                    Stack(children: [widget!, ...list]),
+                child: _showFrontSide
+                    ? cards[_flashCardID].front(context)
+                    : cards[_flashCardID].back(context),
+                switchInCurve: Curves.easeInBack,
+                switchOutCurve: Curves.easeInBack.flipped,
+              ),
+            ),
+            Container(
+              child: Signature(key: _sign,strokeWidth: 7.0),
+              color: Colors.green,
+              height: 200,
+            ),
+            Row(
+              children: [
+                IconButton(
+                    onPressed: () {
+                      final sign = _sign.currentState;
+                      sign!.clear();
+                      },
+                    icon: Icon(Icons.delete)),
+              ],
+            ),
+            IconButton(onPressed: () async {
+              final sign = _sign.currentState;
+              final image = await sign!.getData();
+
+              var data = await image.toByteData(format: ImageByteFormat.png);
+              String encoded = base64.encode(data!.buffer.asUint8List());
+              bool feedback = await RequestHandler.request(encoded, image.height, image.width);
+              _returnFeedback(feedback);
+            }, icon: Icon(Icons.check)),
+            Row(
+              children: [
+                IconButton(
+                    onPressed: () => setState(() {
+                          _flashCardID = _flashCardID == 0
+                              ? cards.length - 1
+                              : _flashCardID - 1;
+                        }),
+                    icon: Icon(Icons.remove)),
+                IconButton(
+                    onPressed: () => setState(() {
+                          _flashCardID = _flashCardID == cards.length - 1
+                              ? 0
+                              : _flashCardID + 1;
+                        }),
+                    icon: Icon(Icons.add)),
+              ],
+            ),
+            OvalTextButton(
               onTap: () => setState(() => cards.shuffle()),
               text: 'Shuffle',
               textColor: Colors.white,
@@ -108,8 +153,9 @@ class _PracticeScreenState extends State<PracticeScreen> {
               height: 50,
               width: 100,
               fontSize: 20,
-          ),
-        ],
+            ),
+          ],
+        ),
       ),
     );
   }
