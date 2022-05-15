@@ -173,26 +173,32 @@ def compAnswers(estimate=[], answer=''):
     estimatedString = ""
     correct = 1
 
-    for x in range(len(answer)):
+    for x in range(len(estimate)):
         # get top 3 most confident answers
         output = estimate[x]
-        outindex = np.argpartition(output, -5)[-5:]
+        outindex = np.argpartition(output, -3)[-3:]
         outindex = outindex[np.argsort(output[outindex])]
         possibleCharacters = [char.lower() for char in key[outindex]]
 
-        estimatedString += key[outindex][4].lower()
+        estimatedString += key[outindex][2].lower()
 
         # get confidence of actual answer
-        matchingAns = answer[x]
-        if matchingAns in ['c', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 's', 'u', 'v', 'w', 'x', 'y', 'z']:
-            matchingAns = matchingAns.upper()
-        confidence = output[key.tolist().index(matchingAns)]
+        if (x < len(answer)):
+            matchingAns = answer[x]
+            if matchingAns in ['c', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 's', 'u', 'v', 'w', 'x', 'y', 'z']:
+                matchingAns = matchingAns.upper()
+            confidence = output[key.tolist().index(matchingAns)]
 
-        # conditions for giving the user the point for the character
-        if answer[x].lower in possibleCharacters or confidence > 0.01:
-            correct = 1
+            # conditions for giving the user the point for the character
+            if answer[x].lower in possibleCharacters or confidence > 0.008:
+                correct = 1
+            else:
+                correct = 0
         else:
             correct = 0
+    
+    if (len(estimate) != len(answer)):
+        correct = 0
     
     if correct == 1:
         return [1, answer]
