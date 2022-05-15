@@ -13,6 +13,7 @@
 letter_recognition\AI_Training\Training_Data\.txt
 letter_recognition\AI_Training\Training_Data\.mat
 letter_recognition\AI_Training\Training_Data\Debug
+letter_recognition\Test\.txt
 
 # IntelliJ related
 *.iml
