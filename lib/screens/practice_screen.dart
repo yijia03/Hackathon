@@ -81,10 +81,6 @@ class _PracticeScreenState extends State<PracticeScreen> {
                       Navigator.pop(context);
                     },
                     icon: Icon(Icons.arrow_back)),
-                IconButton(
-                    onPressed: () =>
-                        Navigator.pushReplacementNamed(context, EditorScreen.id),
-                    icon: Icon(Icons.create)),
               ],
             ),
             GestureDetector(
@@ -101,6 +97,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
                 switchOutCurve: Curves.easeInBack.flipped,
               ),
             ),
+            SizedBox(height: 20),
             Container(
               child: Signature(key: _sign,strokeWidth: 7.0),
               color: Colors.green,
