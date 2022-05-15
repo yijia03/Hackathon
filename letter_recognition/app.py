@@ -66,7 +66,7 @@ class LetterReader:
 
 reader = LetterReader()
 
-@app.route('/read')
+@app.route('/read', methods=['GET', 'POST'])
 def readLetters():
     #written = request.args.get('written')
     #answer = request.args.get('answer')
