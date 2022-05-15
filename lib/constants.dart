@@ -90,5 +90,13 @@ const kCardTextStyle = TextStyle(
   fontStyle: FontStyle.normal,
 );
 
+//practice_screen
+const kCheckTextStyle = TextStyle(
+  fontFamily: 'Roboto',
+  color: Color(0xffA0E1FF),
+  fontSize: 20,
+  fontStyle: FontStyle.normal,
+);
+
 
 
