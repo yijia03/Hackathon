@@ -103,14 +103,6 @@ class _EditorPageState extends State<EditorPage> {
                     SizedBox(height: 10),
                   ],
                 ),
-                IconButton(
-                    onPressed: () {
-                      setState(() {
-                        terms.removeAt(i);
-                        defs.removeAt(i);
-                      });
-                    },
-                    icon: Icon(Icons.delete)),
               ],
             ),
           ),
