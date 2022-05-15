@@ -7,7 +7,6 @@ import 'package:papyrus/widgets/word_card_editor.dart';
 import 'package:papyrus/utilities/note_card.dart';
 import 'package:papyrus/utilities/set.dart';
 
-
 class EditorScreen extends StatelessWidget {
   final String initialTitle;
 
@@ -16,8 +15,12 @@ class EditorScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return Scaffold(resizeToAvoidBottomInset: false, body: EditorPage(initialTitle: initialTitle,),);
+    return Scaffold(
+      backgroundColor: kBackgroundColor,
+      resizeToAvoidBottomInset: false,
+      body: EditorPage(
+        initialTitle: initialTitle,
+      ),
+    );
   }
 }
-

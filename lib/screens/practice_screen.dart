@@ -5,6 +5,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_signature_pad/flutter_signature_pad.dart';
+import 'package:papyrus/constants.dart';
 import 'package:papyrus/screens/editor_screen.dart';
 import 'package:papyrus/utilities/brain.dart';
 import 'package:papyrus/utilities/note_card.dart';
@@ -68,6 +69,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
         return Future.value(true);
       },
       child: Scaffold(
+        backgroundColor: kBackgroundColor,
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

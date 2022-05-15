@@ -15,7 +15,7 @@ class SettingsSwitch extends StatelessWidget {
     return ListTile(
       title: Text(text, style: textStyle),
       contentPadding: const EdgeInsets.symmetric(horizontal: 20),
-      tileColor: Colors.white,
+      tileColor: kBackgroundColor,
       trailing: Switch(
         activeColor: color,
         inactiveThumbColor: color,

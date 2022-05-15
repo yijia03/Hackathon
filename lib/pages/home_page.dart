@@ -27,6 +27,7 @@ class _HomePageState extends State<HomePage> {
         setCards.add(SetCard(s.getName()));
       }
       return Scaffold(
+        backgroundColor: kBackgroundColor,
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
