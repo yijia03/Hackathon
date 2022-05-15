@@ -70,7 +70,15 @@ reader = LetterReader()
 def readLetters():
     #written = request.args.get('written')
     #answer = request.args.get('answer')
+    print("POST!")
     print(request)
+
+    content_type = request.headers.get('Content-Type')
+    json = request.json
+
+    print(json)
+
+    return json
 
 @app.route('/')
 def test():
