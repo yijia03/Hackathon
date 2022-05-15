@@ -180,7 +180,7 @@ def compAnswers(estimate=[], answer=''):
         outindex = outindex[np.argsort(output[outindex])]
         possibleCharacters = [char.lower() for char in key[outindex]]
 
-        estimatedString += key[outindex][2].lower()
+        estimatedString += key[outindex][4].lower()
 
         # get confidence of actual answer
         if (x < len(answer)):
