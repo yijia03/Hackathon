@@ -176,7 +176,7 @@ def compAnswers(estimate=[], answer=''):
     for x in range(len(estimate)):
         # get top 3 most confident answers
         output = estimate[x]
-        outindex = np.argpartition(output, -3)[-3:]
+        outindex = np.argpartition(output, -5)[-5:]
         outindex = outindex[np.argsort(output[outindex])]
         possibleCharacters = [char.lower() for char in key[outindex]]
 
