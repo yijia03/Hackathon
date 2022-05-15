@@ -74,6 +74,7 @@ def readLetters():
 
 @app.route('/')
 def test():
+    print("app_is_running")
     return "hello world"
 
 if __name__ == "__main__":
