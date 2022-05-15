@@ -9,6 +9,11 @@
 .history
 .svn/
 
+# Octave
+letter_recognition\AI_Training\Training_Data\.txt
+letter_recognition\AI_Training\Training_Data\.mat
+letter_recognition\AI_Training\Training_Data\Debug
+
 # IntelliJ related
 *.iml
 *.ipr
