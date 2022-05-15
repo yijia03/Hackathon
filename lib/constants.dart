@@ -19,6 +19,12 @@ const kHeaderTextStyle = TextStyle(
     fontFamily: 'Roboto',
     fontSize: 50.0,
     color: Color(0xff77E1FF));
+const kDarkModeButtonTextStyle = TextStyle(
+  fontFamily: 'Roboto',
+  fontSize: 20,
+  color: Color(0xff77E1FF)
+);
+var kBackgroundColor = Colors.white;
 var kAddButtonStyle = ButtonStyle(
   padding: MaterialStateProperty.all(EdgeInsets.all(15)),
   shape: MaterialStateProperty.all(CircleBorder()),

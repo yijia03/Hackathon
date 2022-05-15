@@ -10,6 +10,8 @@ import 'package:papyrus/utilities/set.dart';
 import 'package:papyrus/widgets/word_card.dart';
 import 'package:provider/provider.dart';
 
+import 'constants.dart';
+
 void main() {
   runApp( Papyrus());
 }
@@ -22,6 +24,11 @@ class Papyrus extends StatelessWidget {
     } catch (e) {
       print(e);
       _b = Brain();
+      WordSet s = WordSet('name');
+      for (int i = 0; i < 10; i++) {
+        s.insert(NoteCard('Term $i', 'Def $i'));
+      }
+      _b.insert(s);
     }
   }
   @override
@@ -31,10 +38,6 @@ class Papyrus extends StatelessWidget {
       create: (context) => _b,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          // UI
-          brightness: Brightness.light,
-        ),
         routes: {
           WelcomeScreen.id: (context) => const WelcomeScreen(),
           HomeScreen.id: (context) => const HomeScreen(),

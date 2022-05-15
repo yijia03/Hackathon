@@ -100,7 +100,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
               ),
             ),
             Container(
-              child: Signature(key: _sign,),
+              child: Signature(key: _sign,strokeWidth: 7.0),
               color: Colors.green,
               height: 200,
             ),
