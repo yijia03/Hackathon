@@ -9,4 +9,5 @@ class NoteCard {
   String getDef() => _def;
   @override
   String toString() => '$_term: $_def';
+  String toJSON() => '["$_term", "$_def"]';
 }
