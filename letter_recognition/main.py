@@ -70,6 +70,9 @@ with open('AI_Training/Output/testInput.csv', 'r') as f:
 input = np.true_divide(input, 255)
 
 output = letterReader.recog(input)
+
+# gets thhe indicies of the top 3 most likely characters 
 outindex = np.argpartition(output, -3)[-3:]
 outindex = outindex[np.argsort(output[outindex])]
-print(key[outindex])
+
+print(key[output])

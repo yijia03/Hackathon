@@ -9,8 +9,8 @@ fprintf('Loading Data\n');
 load('Training_Data\processed_data');				% 112800 training examples and 18800 for testing from EMNIST (Balanced): https://arxiv.org/pdf/1702.05373v1.pdf
 
 X = X / 255;
-y = y / 255;
+y = y;
 testX = testX / 255;
-testY = testY / 255;
+testY = testY;
 fullData = [X y];
 fprintf('Loading Completed\n');
