@@ -14,12 +14,16 @@ class EditorScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: kBackgroundColor,
-      resizeToAvoidBottomInset: false,
-      body: SafeArea(
-        child: EditorPage(
-          initialTitle: initialTitle,
+    Brain b = Provider.of<()
+    return WillPopScope(
+      onWillPop: ,
+      child: Scaffold(
+        backgroundColor: kBackgroundColor,
+        resizeToAvoidBottomInset: false,
+        body: SafeArea(
+          child: EditorPage(
+            initialTitle: initialTitle,
+          ),
         ),
       ),
     );
