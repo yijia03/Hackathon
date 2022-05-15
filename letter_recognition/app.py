@@ -68,12 +68,9 @@ reader = LetterReader()
 
 @app.route('/read')
 def readLetters():
-    written = request.args.get('written')
-
-    # resize to a height of 28 pixels
-
-
-    return request.args.get('answer')
+    #written = request.args.get('written')
+    #answer = request.args.get('answer')
+    print(request.args)
 
 @app.route('/')
 def test():
