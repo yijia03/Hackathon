@@ -105,7 +105,10 @@ class _EditorPageState extends State<EditorPage> {
                 ),
                 IconButton(
                     onPressed: () {
-
+                      setState(() {
+                        terms.removeAt(i);
+                        defs.removeAt(i);
+                      });
                     },
                     icon: Icon(Icons.delete)),
               ],

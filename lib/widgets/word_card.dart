@@ -5,6 +5,8 @@ class WordCard extends StatelessWidget {
   NoteCard _card;
   WordCard(this._card);
 
+  String getDef() => _card.getDef();
+
   @override
   Widget build(context) {
     return Container();

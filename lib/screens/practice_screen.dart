@@ -119,7 +119,7 @@ class _PracticeScreenState extends State<PracticeScreen> {
 
               var data = await image.toByteData(format: ImageByteFormat.png);
               String encoded = base64.encode(data!.buffer.asUint8List());
-              bool feedback = await RequestHandler.request(encoded, image.height, image.width);
+              bool feedback = await RequestHandler.request(encoded, image.height, image.width, cards[_flashCardID].getDef());
               _returnFeedback(feedback);
             }, icon: Icon(Icons.check)),
             Row(
