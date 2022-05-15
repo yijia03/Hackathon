@@ -103,22 +103,22 @@ class _PracticeScreenState extends State<PracticeScreen> {
               children: [
                 IconButton(
                     onPressed: () => setState(() {
-                      _flashCardID = _flashCardID == 0
-                          ? cards.length - 1
-                          : _flashCardID - 1;
-                    }),
+                          _flashCardID = _flashCardID == 0
+                              ? cards.length - 1
+                              : _flashCardID - 1;
+                        }),
                     icon: Icon(Icons.arrow_back)),
                 IconButton(
                     onPressed: () => setState(() {
-                      _flashCardID = _flashCardID == cards.length - 1
-                          ? 0
-                          : _flashCardID + 1;
-                    }),
+                          _flashCardID = _flashCardID == cards.length - 1
+                              ? 0
+                              : _flashCardID + 1;
+                        }),
                     icon: Icon(Icons.arrow_forward)),
               ],
             ),
             Container(
-              child: Signature(key: _sign,strokeWidth: 7.0),
+              child: Signature(key: _sign, strokeWidth: 7.0),
               color: Colors.grey[400],
               height: 200,
             ),
@@ -128,31 +128,70 @@ class _PracticeScreenState extends State<PracticeScreen> {
                     onPressed: () {
                       final sign = _sign.currentState;
                       sign!.clear();
-                      },
+                    },
                     icon: Icon(Icons.delete)),
               ],
             ),
-            IconButton(onPressed: () async {
-              final sign = _sign.currentState;
-              final image = await sign!.getData();
+            IconButton(
+                onPressed: () async {
+                  final sign = _sign.currentState;
+                  final image = await sign!.getData();
 
-              var data = await image.toByteData(format: ImageByteFormat.png);
-              String encoded = base64.encode(data!.buffer.asUint8List());
-              var feedback = await RequestHandler.request(encoded, image.height, image.width, cards[_flashCardID].getDef());
-              print(feedback);
-            }, icon: Icon(Icons.check)),
-
-            OvalTextButton(
-              onTap: () => setState(() => cards.shuffle()),
-              text: 'Shuffle',
-              textColor: Colors.white,
-              backgroundColor: Colors.amberAccent,
-              borderColor: Colors.white,
-              elevation: 20,
-              height: 50,
-              width: 100,
-              fontSize: 20,
-            ),
+                  var data =
+                      await image.toByteData(format: ImageByteFormat.png);
+                  String encoded = base64.encode(data!.buffer.asUint8List());
+                  dynamic  feedback = await RequestHandler.request(encoded,
+                      image.height, image.width, cards[_flashCardID].getDef());
+                  print(feedback);
+                  if (feedback['output'] == 1) {
+                    showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        title: const Text(''),
+                        content: const Text('Correct!'),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, 'Cancel'),
+                            child: const Text('Cancel'),
+                          ),
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, 'OK'),
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      ),
+                    );
+                  } else {
+                    showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        title: const Text(''),
+                        content: Text('Incorrect!\nThe AI thinks that you wrote: ${feedback['user_estimated_answer']}'),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, 'Cancel'),
+                            child: const Text('Cancel'),
+                          ),
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, 'OK'),
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+                },
+                icon: Icon(Icons.check)),
+            ElevatedButton(
+              onPressed: () => setState(() => cards.shuffle()),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width-290),
+                child: Text(
+                  'Shuffle',
+                  style: kCheckTextStyle,
+                ),
+              ),
+            )
           ],
         ),
       ),

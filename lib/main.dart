@@ -22,13 +22,7 @@ class Papyrus extends StatelessWidget {
     try {
       _b = await JSONManager.load();
     } catch (e) {
-      print(e);
       _b = Brain();
-      WordSet s = WordSet('name');
-      for (int i = 0; i < 10; i++) {
-        s.insert(NoteCard('Term $i', 'Def $i'));
-      }
-      _b.insert(s);
     }
   }
   @override
