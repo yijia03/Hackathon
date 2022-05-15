@@ -23,7 +23,6 @@ class Papyrus extends StatelessWidget {
     set.insert(NoteCard('B', 'b'));
     set.insert(NoteCard('C', 'c'));
     _b.insert(set);
-    _b.select('set 1', editing: false);
   }
   @override
   Widget build(BuildContext context) {
