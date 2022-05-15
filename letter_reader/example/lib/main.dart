@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:flutter/services.dart';
-import 'package:letter_reader/letter_reader.dart';
+import 'package:lib/letter_reader.dart';
 
 void main() {
   runApp(const MyApp());
