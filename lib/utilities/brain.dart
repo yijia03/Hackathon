@@ -63,11 +63,12 @@ class Brain extends ChangeNotifier {
       return set;
    }
    ///Adds the currently selected set into the collection and removes it from the editing cursor. Does nothing if no set is selected
-   void saveEdits() {
-      if (_current == null) {
-         return;
+   void saveEdits([WordSet? original]) {
+      if (original != null) {
+         insert(original);
+      } else if (_current != null) {
+         insert(_current!);
       }
-      insert(_current!);
       _current = null;
    }
    ///Selects a set with the cursor, if editing is true, then the list is also removed from the collection. Throws NotFoundException if setName doesn't match any sets in the collection

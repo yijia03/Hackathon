@@ -57,7 +57,13 @@ class _SubjectScreenState extends State<SubjectScreen> {
         children: [
           Row(
             children: [
-              Text('BUTTONS HERE'),
+              IconButton(
+                  onPressed: () => setState(() {
+                    _flashCardID = _flashCardID == 0
+                        ? cards.length - 1
+                        : _flashCardID - 1;
+                  }),
+                  icon: Icon(Icons.arrow_back)),
             ],
           ),
           GestureDetector(
