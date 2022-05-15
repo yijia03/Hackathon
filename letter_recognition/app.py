@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, response, jsonify, make_response
 
 app = Flask(__name__)
 
@@ -68,17 +68,17 @@ reader = LetterReader()
 
 @app.route('/read', methods=['GET', 'POST'])
 def readLetters():
-    #written = request.args.get('written')
-    #answer = request.args.get('answer')
-    print("POST!")
-    print(request)
-
     content_type = request.headers.get('Content-Type')
     json = request.json
 
-    print(json)
+    answer = json.answer
+    written = json.written
 
-    return json
+    output = 0
+
+    response = make_response(jsonify({"output": output}), 401)
+    response.headers["Content-Type"] = "application/json"
+    return response
 
 @app.route('/')
 def test():
