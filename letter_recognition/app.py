@@ -4,6 +4,7 @@ app = Flask(__name__)
 
 import csv
 import numpy as np
+import base64
 
 # key for labels to digits & letters
 key = np.array(['0','1','2','3','4','5','6','7','8','9',
@@ -68,15 +69,24 @@ reader = LetterReader()
 
 @app.route('/read', methods=['GET', 'POST'])
 def readLetters():
+    # get data from app
     content_type = request.headers.get('Content-Type')
     json = request.json
+
+    print(json)
 
     # answer = json.answer
     # written = json.written
 
-    output = 0
+    # process image
+    # written = base64.decode(written)
+    # print(written)
 
-    response = make_response(jsonify({"output": output}), 401)
+    # answers
+    output = 0
+    userAns = ""
+
+    response = make_response(jsonify({"output": output, "user_estimated_answer": userAns}), 401)
     response.headers["Content-Type"] = "application/json"
     return response
 
