@@ -7,3 +7,10 @@ fprintf('Loading Data\n');
 %load('Training_Data\processed_data_short_5000');	% 5000 training examples for training and another 5000 for testing
 %load('Training_Data\processed_data_short');		% 25000 training examples for training but the full 18800 for testing
 load('Training_Data\processed_data');				% 112800 training examples and 18800 for testing from EMNIST (Balanced): https://arxiv.org/pdf/1702.05373v1.pdf
+
+X = X / 255;
+y = y / 255;
+testX = testX / 255;
+testY = testY / 255;
+fullData = [X y];
+fprintf('Loading Completed\n');

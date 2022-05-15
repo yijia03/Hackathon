@@ -1,9 +1,9 @@
 %%%% If no data has been loaded, run 'loadData' first %%%%
 close all; clc;
-clearvars -except X y testX testY;
+clearvars -except X y testX testY fullData;
 
 %%%% Parameters %%%%
-input_layer_size  = 784;  % 28x28 Greyscale Input Images
+input_layer_size  = 784;  % 28x28 Greyscale Input Images, normalized to 0-1 for each pixel
 hidden_layer_size = 400;  % number of  hidden units in each hidden layer
 hidden_layer_2_size = 200;
 num_labels = 47;          % 47 labels: 
@@ -14,7 +14,6 @@ sampleLoad = 1000;		  % amount of training examples to pull each training period
 m = size(X, 1);			  % number of total test samples
 
 %Randomly select a number samples from the consolidated training examples, collected from EMNIST Balanced: https://arxiv.org/abs/1702.05373v1
-fullData = [X y];
 randomData = randperm(size(fullData, 1), sampleLoad);
 randomData = fullData(randomData, :);
 X = randomData(:, 1:size(X)(2));
@@ -79,7 +78,18 @@ plot(0:iterations:n*iterations, total_overfit, 'blue');
 drawnow;
 
 %%%% Additional Training %%%%
-target = 0.9;
+k = 1;
+target = 0.99;
 while accuracy < target
 	train();
+	k++;
+	if mod(k, 5) == 0
+		csvwrite('Output\Theta1_backup.csv', Theta1);
+		csvwrite('Output\Theta2_backup.csv', Theta2);
+		csvwrite('Output\Theta3_backup.csv', Theta3);
+	end
 end
+
+csvwrite('Output\Theta1.csv', Theta1);
+csvwrite('Output\Theta2.csv', Theta2);
+csvwrite('Output\Theta3.csv', Theta3);
