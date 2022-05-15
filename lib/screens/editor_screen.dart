@@ -21,6 +21,7 @@ class _EditorScreenState extends State<EditorScreen> {
   late TextEditingController _controller;
   List<WordCardEditor> cards = [];
   bool _initialLoad = true;
+  late Brain brain;
 
   @override
   void initState() {
@@ -36,8 +37,9 @@ class _EditorScreenState extends State<EditorScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Brain brain = Provider.of<Brain>(context);
+    print('cards=$cards');
     if (_initialLoad) {
+      brain = Provider.of<Brain>(context);
       brain.clearTempDefinitions();
       brain.clearTempTerms();
       for (NoteCard nc in brain.getCurr().getCards()) {
@@ -88,7 +90,6 @@ class _EditorScreenState extends State<EditorScreen> {
             height: 5,
             color: Colors.grey[300],
           ),
-
           Expanded(
             child: ListView(
               scrollDirection: Axis.vertical,

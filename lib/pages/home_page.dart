@@ -60,7 +60,11 @@ class _HomePageState extends State<HomePage> {
                         child: ElevatedButton(
                           onPressed: () {
                             brain.create();
-                            Navigator.pushNamed(context, EditorScreen.id);
+                            Navigator.push(context,
+                              MaterialPageRoute(
+                                builder: (context) => EditorScreen(initialTitle: brain.getCurr().getName()),
+                              ),
+                            );
                           },
                           child: Icon(Icons.add),
                           style: kAddButtonStyle,
