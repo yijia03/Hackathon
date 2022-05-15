@@ -17,8 +17,14 @@ const kBottomNavBarTextColor = Colors.white;
 //home_page
 const kHeaderTextStyle = TextStyle(
     fontFamily: 'Roboto',
-    fontSize: 50.0,
+    fontSize: 35.0,
     color: Color(0xff77E1FF));
+const kHomepageSetTextStyle = TextStyle(
+    fontFamily: 'Roboto',
+    fontSize: 20.0,
+    color: Color(0xff77E1FF));
+
+//settingsPage
 const kDarkModeButtonTextStyle = TextStyle(
   fontFamily: 'Roboto',
   fontSize: 20,

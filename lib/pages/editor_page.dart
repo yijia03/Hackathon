@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:papyrus/utilities/brain.dart';
 import 'package:provider/provider.dart';
 import 'package:papyrus/constants.dart';
-import 'package:papyrus/widgets/word_card_editor.dart';
 import 'package:papyrus/utilities/note_card.dart';
 import 'package:papyrus/utilities/set.dart';
 
@@ -42,6 +41,7 @@ class _EditorPageState extends State<EditorPage> {
           child: Container(
             color: Colors.grey[100],
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 SizedBox(width: 20),
                 Column(
@@ -73,7 +73,7 @@ class _EditorPageState extends State<EditorPage> {
                     SizedBox(height: 10),
                   ],
                 ),
-                SizedBox(width: MediaQuery.of(context).size.width - 340),
+                SizedBox(width: MediaQuery.of(context).size.width - 370),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -103,7 +103,11 @@ class _EditorPageState extends State<EditorPage> {
                     SizedBox(height: 10),
                   ],
                 ),
-                SizedBox(width: 20),
+                IconButton(
+                    onPressed: () {
+
+                    },
+                    icon: Icon(Icons.delete)),
               ],
             ),
           ),
