@@ -14,9 +14,9 @@ class EditorScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Brain b = Provider.of<()
+    //Brain b = Provider.of<(
     return WillPopScope(
-      onWillPop: ,
+      onWillPop: () => Future.value(true),
       child: Scaffold(
         backgroundColor: kBackgroundColor,
         resizeToAvoidBottomInset: false,
