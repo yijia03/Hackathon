@@ -1,3 +1,7 @@
+from flask import Flask, request
+
+app = Flask(__name__)
+
 import csv
 import numpy as np
 
@@ -59,6 +63,20 @@ class LetterReader:
 
         output = np.array(output)
         return output
+
+reader = LetterReader()
+
+@app.route('/read')
+def readLetters():
+    written = request.args.get('written')
+
+    # resize to a height of 28 pixels
+
+
+    return request.args.get('answer')
+
+if __name__ == "__main__":
+    app.run()
 
 ## TESTING PURPOSES ##
 # letterReader = LetterReader()
