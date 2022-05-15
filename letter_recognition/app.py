@@ -194,11 +194,11 @@ def compAnswers(estimate=[], answer=''):
 
             # conditions for giving the user the point for the character
             if (answer[x].lower in possibleCharacters) or (confidence > 0.01):
-                correct = 1
+                correct *= 1
             else:
-                correct = 0
+                correct *= 0
         else:
-            correct = 0
+            correct *= 0
     
     if (len(estimate) != len(answer)):
         correct = 0
