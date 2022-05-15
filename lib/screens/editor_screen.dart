@@ -64,6 +64,7 @@ class _EditorScreenState extends State<EditorScreen> {
                 ),
               ],
             ),
+
             Stack(
               alignment: AlignmentDirectional.bottomEnd,
               children: <Widget>[
