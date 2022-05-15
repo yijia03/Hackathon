@@ -18,8 +18,10 @@ class EditorScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: kBackgroundColor,
       resizeToAvoidBottomInset: false,
-      body: EditorPage(
-        initialTitle: initialTitle,
+      body: SafeArea(
+        child: EditorPage(
+          initialTitle: initialTitle,
+        ),
       ),
     );
   }

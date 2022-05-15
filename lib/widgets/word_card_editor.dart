@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:papyrus/constants.dart';
 import 'package:papyrus/utilities/brain.dart';
@@ -15,33 +16,6 @@ class WordCardEditor extends StatefulWidget {
 }
 
 class _WordCardEditorState extends State<WordCardEditor> {
-  late TextEditingController _controller1;
-  late TextEditingController _controller2;
-
-
-  @override
-  void initState() {
-    super.initState();
-    _controller1 = TextEditingController(text: widget.initialTerm);
-    _controller2 = TextEditingController(text: widget.initialDefinition);
-  }
-
-  @override
-  void dispose() {
-    _controller1.dispose();
-    _controller2.dispose();
-    super.dispose();
-  }
-
-  String getTerm(){
-    return _controller1.text;
-  }
-
-  String getDefinition(){
-    return _controller2.text;
-  }
-
-
 @override
   Widget build(BuildContext context) {
     Brain brain = Provider.of<Brain>(context);
@@ -138,4 +112,4 @@ class _WordCardEditorState extends State<WordCardEditor> {
     );
   }
 }
-
+*/

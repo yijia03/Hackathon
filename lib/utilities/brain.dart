@@ -7,42 +7,6 @@ import 'package:papyrus/widgets/word_card.dart';
 
 ///A collection of all the sets the user has created, in alphabetical order by name
 class Brain extends ChangeNotifier {
-   List<String> tempTerms = [];
-   List<String> tempDefinitions = [];
-
-   void addTempTerms(String s, int i){
-      tempTerms.insert(i, s);
-   }
-
-   void addTempDefinitions(String s, int i){
-      tempDefinitions.insert(i,s);
-   }
-
-   void removeTempTerms(int i){
-      tempTerms.removeAt(i);
-   }
-
-   void removeTempDefinitions(int i){
-      tempDefinitions.removeAt(i);
-   }
-
-   List<String> getTempTerms(){
-      return tempTerms;
-   }
-
-   List<String> getTempDefinitions(){
-      return tempDefinitions;
-   }
-
-   void clearTempTerms(){
-      tempTerms = [];
-   }
-
-   void clearTempDefinitions(){
-      tempDefinitions = [];
-   }
-
-
    ///Collections of the sets
    final List<WordSet> _sets = [];
    ///The set that is currently being edited
