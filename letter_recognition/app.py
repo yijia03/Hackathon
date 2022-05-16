@@ -236,7 +236,8 @@ def test():
     return "hello world"
 
 if __name__ == "__main__":
-    app.run()     #UNCOMMENT THIS!
+    from waitress import serve
+    serve(app, host="0.0.0.0", port=80)
 
 ## TESTING PURPOSES ##
 # letterReader = LetterReader()
